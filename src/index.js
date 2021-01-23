@@ -6,13 +6,36 @@ const markup = itemsTemplate(menu);
 const galleryRef = document.querySelector('.js-menu');
 galleryRef.insertAdjacentHTML('beforeend', markup);
 
-// сonst refs = {
-//     checkbox: document.querySelector('.theme-switch__toggle')
+const refs = {
+  checkbox: document.getElementById('theme-switch-toggle'),
+  body: document.querySelector('body'),
+};
 
-// }
+const Theme = {
+  LIGHT: 'light-theme',
+  DARK: 'dark-theme',
+};
 
-// refs.checkbox.addEventListener('change', changeTheme)
+let startTheme = localStorage.getItem('savedTheme');
+if (startTheme) {
+  startTheme = JSON.parse(startTheme);
+} else startTheme = 'LIGHT';
 
-// function changeTheme(event) {
+refs.body.classList.add(Theme[startTheme]);
+if (startTheme === 'DARK') {
+  refs.checkbox.setAttribute('checked', 'true');
+}
 
-// }
+const setTheme = function () {
+  if (refs.checkbox.hasAttribute('checked')) {
+    refs.body.classList.replace('dark-theme', 'light-theme');
+    localStorage.setItem('savedTheme', JSON.stringify('LIGHT'));
+    refs.checkbox.removeAttribute('checked');
+  } else {
+    refs.body.classList.replace('light-theme', 'dark-theme');
+    localStorage.setItem('savedTheme', JSON.stringify('DARK'));
+    refs.checkbox.setAttribute('checked', 'true');
+  }
+};
+
+refs.checkbox.addEventListener('change', setTheme);
