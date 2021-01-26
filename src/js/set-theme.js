@@ -18,16 +18,23 @@ if (startTheme === 'DARK') {
   refs.checkbox.setAttribute('checked', 'true');
 }
 
-const setTheme = function () {
+const changeTheme = function () {
   if (refs.checkbox.hasAttribute('checked')) {
-    refs.body.classList.replace('dark-theme', 'light-theme');
-    localStorage.setItem('savedTheme', JSON.stringify('LIGHT'));
+    setTheme('LIGHT');
     refs.checkbox.removeAttribute('checked');
   } else {
-    refs.body.classList.replace('light-theme', 'dark-theme');
-    localStorage.setItem('savedTheme', JSON.stringify('DARK'));
+    setTheme('DARK');
     refs.checkbox.setAttribute('checked', 'true');
   }
 };
 
-refs.checkbox.addEventListener('change', setTheme);
+const setTheme = function (settheme) {
+  let removetheme;
+  if (settheme === 'LIGHT') {
+    removetheme = 'DARK';
+  } else removetheme = 'LIGHT';
+  refs.body.classList.replace(Theme[removetheme], Theme[settheme]);
+  localStorage.setItem('savedTheme', JSON.stringify(settheme));
+};
+
+refs.checkbox.addEventListener('change', changeTheme);
