@@ -21,6 +21,7 @@ if (startTheme) {
   startTheme = JSON.parse(startTheme);
 } else startTheme = 'LIGHT';
 
+<<<<<<< Updated upstream
 refs.body.classList.add(Theme[startTheme]);
 if (startTheme === 'DARK') {
   refs.checkbox.setAttribute('checked', 'true');
@@ -39,3 +40,8 @@ const setTheme = function () {
 };
 
 refs.checkbox.addEventListener('change', setTheme);
+=======
+// function changeTheme(event) {
+// event.preventDefault();
+// }
+>>>>>>> Stashed changes
