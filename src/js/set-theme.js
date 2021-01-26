@@ -1,0 +1,33 @@
+const refs = {
+  checkbox: document.getElementById('theme-switch-toggle'),
+  body: document.querySelector('body'),
+};
+
+const Theme = {
+  LIGHT: 'light-theme',
+  DARK: 'dark-theme',
+};
+
+let startTheme = localStorage.getItem('savedTheme');
+if (startTheme) {
+  startTheme = JSON.parse(startTheme);
+} else startTheme = 'LIGHT';
+
+refs.body.classList.add(Theme[startTheme]);
+if (startTheme === 'DARK') {
+  refs.checkbox.setAttribute('checked', 'true');
+}
+
+const setTheme = function () {
+  if (refs.checkbox.hasAttribute('checked')) {
+    refs.body.classList.replace('dark-theme', 'light-theme');
+    localStorage.setItem('savedTheme', JSON.stringify('LIGHT'));
+    refs.checkbox.removeAttribute('checked');
+  } else {
+    refs.body.classList.replace('light-theme', 'dark-theme');
+    localStorage.setItem('savedTheme', JSON.stringify('DARK'));
+    refs.checkbox.setAttribute('checked', 'true');
+  }
+};
+
+refs.checkbox.addEventListener('change', setTheme);
